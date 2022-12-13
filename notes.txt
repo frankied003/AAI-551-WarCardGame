@@ -1,0 +1,4 @@
+1. Had some trouble with circular imports. It's a little confusing sometimes whether you should define types for functions, but
+   this one error made me unable to define a type for the deal function is the deck class.
+   
+2. 
