@@ -2,14 +2,6 @@ from typing import List
 from classes.deck import Deck
 from classes.hand import Hand
 
-"""
-1. The goal is to be the first player to win all 52 cards
-2. The deck is divided evenly, with each player receiving 26 cards, dealt one at a time, face down. 
-   Anyone may deal first. Each player places their stack of cards face down, in front of them.
-3. Each player turns up a card at the same time and the player with the higher card, including rank and set, takes both cards and puts them, face down, on the bottom of his stack.
-4. Winner is person with all 52 cards
-"""
-
 class War:
    def __init__(self, player1:str, player2:str):
       self.deck = Deck()
@@ -26,6 +18,7 @@ class War:
    # Find the winning hand for a 1 to 1 card ratio.
    def find_winning_hand(self, stash1, stash2):
    
+      # Checking what card is higher or if it's a tie.
       if stash1[-1].__gt__(stash2[-1]):
          print(self.players[0].name, "won!")
          return self.players[0]
@@ -34,6 +27,8 @@ class War:
          return self.players[1]
       elif stash2[-1].__eq__(stash1[-1]):
          print("It's a tie")
+
+         # Try catch here because of out of bounds / indexing error.
          try:
             for i in range(3):
                new_card = self.players[0].draw_top_card()
@@ -43,6 +38,7 @@ class War:
                self.players[1].stash.append(new_card)
             return self.find_winning_hand(self.players[0].stash, self.players[1].stash)
          except IndexError:
+            # Means the losing player doesn't have three cards so winner goes to person with higher # of cards
             if len(self.players[0].cards) > len(self.players[1].cards):
                return self.players[0]
             else:
