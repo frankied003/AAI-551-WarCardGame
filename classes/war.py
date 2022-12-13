@@ -1,6 +1,7 @@
 from typing import List
 from classes.deck import Deck
 from classes.hand import Hand
+from classes.print_cards import ascii_version_of_card
 
 class War:
    def __init__(self, player1:str, player2:str):
@@ -21,9 +22,11 @@ class War:
       # Checking what card is higher or if it's a tie.
       if stash1[-1].__gt__(stash2[-1]):
          print(self.players[0].name, "won!")
+         print("----------------------------------- \n")
          return self.players[0]
       elif stash2[-1].__gt__(stash1[-1]):
          print(self.players[1].name, "won!")
+         print("----------------------------------- \n")
          return self.players[1]
       elif stash2[-1].__eq__(stash1[-1]):
          print("It's a tie")
@@ -59,6 +62,8 @@ class War:
          print(drawn_card, "was drawn by", player.name, "who has", len(player.cards), "left")
          player.stash.append(drawn_card)
 
+      print(ascii_version_of_card(self.players[0].stash[-1], self.players[1].stash[-1]))
+
       # Call winning hand, which will calculate who get's the card or if they should draw 3 from a tie.
       winning_hand = self.find_winning_hand(self.players[0].stash, self.players[1].stash)
          
@@ -72,7 +77,8 @@ class War:
    def play_war(self):
       while(len(self.players) > 1):
          self.play_round()
-      
+
+      print("-----------------------------------------------------------------------")
       print("The winner is", self.players[0].name)
 
 
